@@ -4,6 +4,11 @@ This branch uses
 - [garyng/cimgui](https://github.com/garyng/cimgui)
 - [garyng/imgui](https://github.com/garyng/imgui)
 
+1. Trigger Actions to update dependencies > merge auto-created pull request
+1. Run CodeGenerator > commit and push changes
+1. Update `AssemblyVersion`
+1. Create new release > wait for Actions to publish to NuGet
+
 ---
 
 # ImGui.NET
