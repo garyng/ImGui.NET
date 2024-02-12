@@ -7,7 +7,7 @@ on:
         required: true
 
 jobs:
-  download_dependencies:
+  update_dependencies:
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -22,8 +22,8 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           commit-message: |
-            feat: update dependencies
+            feat: update dependencies to ${{ github.event.inputs.deps_version_tag }}
           branch: features/update-deps
           delete-branch: true
           title: |
-            Update dependencies
+            Update dependencies to ${{ github.event.inputs.deps_version_tag }}
