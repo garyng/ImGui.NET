@@ -1,13 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace CodeGenerator
 {
@@ -38,6 +35,14 @@ namespace CodeGenerator
             else
             {
                 libraryName = "cimgui";
+#if DEBUG
+                string ProjectSourceDir([CallerFilePath] string callerFilePath = null) =>
+                    string.IsNullOrEmpty(callerFilePath)
+                        ? AppContext.BaseDirectory
+                        : Path.GetDirectoryName(callerFilePath);
+
+                outputPath = Path.GetFullPath($"{ProjectSourceDir()}/../ImGui.NET/Generated");
+#endif
             }
 
             string projectNamespace = libraryName switch
