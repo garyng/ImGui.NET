@@ -1106,6 +1106,11 @@ namespace ImGuiNET
             byte ret = ImGuiNative.igBeginMenuBar();
             return ret != 0;
         }
+        public static ImGuiMultiSelectIOPtr BeginMultiSelect(ImGuiMultiSelectFlags flags)
+        {
+            ImGuiMultiSelectIO* ret = ImGuiNative.igBeginMultiSelect(flags);
+            return new ImGuiMultiSelectIOPtr(ret);
+        }
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_1_OR_GREATER
         public static bool BeginPopup(ReadOnlySpan<char> str_id)
         {
@@ -12409,6 +12414,11 @@ namespace ImGuiNET
         {
             ImGuiNative.igEndMenuBar();
         }
+        public static ImGuiMultiSelectIOPtr EndMultiSelect()
+        {
+            ImGuiMultiSelectIO* ret = ImGuiNative.igEndMultiSelect();
+            return new ImGuiMultiSelectIOPtr(ret);
+        }
         public static void EndPopup()
         {
             ImGuiNative.igEndPopup();
@@ -16875,6 +16885,11 @@ namespace ImGuiNET
             byte ret = ImGuiNative.igIsItemToggledOpen();
             return ret != 0;
         }
+        public static bool IsItemToggledSelection()
+        {
+            byte ret = ImGuiNative.igIsItemToggledSelection();
+            return ret != 0;
+        }
         public static bool IsItemVisible()
         {
             byte ret = ImGuiNative.igIsItemVisible();
@@ -21226,6 +21241,10 @@ namespace ImGuiNET
         {
             byte native_is_open = is_open ? (byte)1 : (byte)0;
             ImGuiNative.igSetNextItemOpen(native_is_open, cond);
+        }
+        public static void SetNextItemSelectionUserData(ImGuiSelectionUserData selection_user_data)
+        {
+            ImGuiNative.igSetNextItemSelectionUserData(selection_user_data);
         }
         public static void SetNextItemWidth(float item_width)
         {
