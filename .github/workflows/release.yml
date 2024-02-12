@@ -66,6 +66,6 @@ jobs:
           ${{ env.PROJECT_ARTIFACTS_DIR }}/CodeGenerator/net7.0/CodeGenerator.exe "src/ImGui.NET/Generated"
           git status -s | findstr . && echo "ERROR: CodeGenerator is not executed, please execute it." && exit 1 || exit 0
 
-    # - name: Publish to nuget.org
-    #   if: startsWith(github.ref, 'refs/tags/')
-    #   run: dotnet nuget push bin\Release\ImGui.NET\*.nupkg -s https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_KEY}}
+      - name: Publish to nuget.org
+        working-directory: ${{ env.PROJECT_ARTIFACTS_DIR }}/ImGui.NET/
+        run: dotnet nuget push "*.nupkg" -k ${{ secrets.NUGET_ORG_API_KEY }} -s https://api.nuget.org/v3/index.json
