@@ -14,12 +14,12 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 7.0.x
 
@@ -33,13 +33,13 @@ jobs:
       run: dotnet pack src/ImGui.NET -c Release --no-restore --no-build
 
     - name: Upload CodeGenerator
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: CodeGenerator
         path: ${{ env.PROJECT_ARTIFACTS_DIR }}/CodeGenerator/net7.0/
 
     - name: Upload packages
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: NuGet packages
         path: ${{ env.PROJECT_ARTIFACTS_DIR }}/ImGui.NET/*.nupkg
@@ -50,7 +50,7 @@ jobs:
     if: ${{ github.event.release.id }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
     
