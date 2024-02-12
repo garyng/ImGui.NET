@@ -1,6 +1,8 @@
-name: build
+name: release
 on:
   workflow_dispatch:
+  release:
+    types: [published]
 
 env:
   PROJECT_SOURCE_DIR: ./src
@@ -30,7 +32,7 @@ jobs:
     - name: Pack
       run: dotnet pack src/ImGui.NET -c Release --no-restore --no-build
 
-    - name: Upload code generator
+    - name: Upload CodeGenerator
       uses: actions/upload-artifact@v3
       with:
         name: CodeGenerator
@@ -42,13 +44,27 @@ jobs:
         name: NuGet packages
         path: ${{ env.PROJECT_ARTIFACTS_DIR }}/ImGui.NET/*.nupkg
 
-    # - name: Validate Generated Code
-    #   if: startsWith(github.ref, 'refs/tags/')
-    #   shell: bash
-    #   run: |
-    #     echo "Running CodeGenerator"
-    #     bin/Release/CodeGenerator/net7.0/CodeGenerator.exe "src/ImGui.NET/Generated"
-    #     git status -s | findstr . && echo "ERROR: CodeGenerator is not executed, please execute it." && exit 1 || exit 0
+  publish:
+    runs-on: windows-latest
+    needs: build
+    if: ${{ github.event.release.id }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+    
+      - name: Download CodeGenerator
+        uses: actions/download-artifact@v3
+        with:
+          name: CodeGenerator
+          path: ${{ env.PROJECT_ARTIFACTS_DIR }}/CodeGenerator/net7.0/
+
+      - name: Validate Generated Code
+        shell: bash
+        run: |
+          ${{ env.PROJECT_ARTIFACTS_DIR }}/CodeGenerator/net7.0/CodeGenerator.exe "src/ImGui.NET/Generated"
+          git status -s | findstr . && echo "ERROR: CodeGenerator is not executed, please execute it." && exit 1 || exit 0
 
     # - name: Publish to nuget.org
     #   if: startsWith(github.ref, 'refs/tags/')
