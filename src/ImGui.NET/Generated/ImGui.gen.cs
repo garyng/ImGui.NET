@@ -21242,7 +21242,7 @@ namespace ImGuiNET
             byte native_is_open = is_open ? (byte)1 : (byte)0;
             ImGuiNative.igSetNextItemOpen(native_is_open, cond);
         }
-        public static void SetNextItemSelectionUserData(ImGuiSelectionUserData selection_user_data)
+        public static void SetNextItemSelectionUserData(long selection_user_data)
         {
             ImGuiNative.igSetNextItemSelectionUserData(selection_user_data);
         }
