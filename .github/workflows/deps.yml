@@ -1,0 +1,29 @@
+name: deps
+on:
+  workflow_dispatch:
+    inputs:
+      deps_version_tag:
+        description: Dependencies version tag
+        required: true
+
+jobs:
+  download_dependencies:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download deps
+        shell: pwsh
+        run: |
+          .\download-native-deps.ps1 https://github.com/garyng/ImGui.NET-nativebuild ${{ github.event.inputs.deps_version_tag }}
+          
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: |
+            feat: update dependencies
+          branch: features/update-deps
+          delete-branch: true
+          title: |
+            Update dependencies
