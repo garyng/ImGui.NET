@@ -24,13 +24,13 @@ jobs:
         dotnet-version: 7.0.x
 
     - name: Restore
-      run: dotnet restore src
+      run: dotnet restore ${{ env.PROJECT_ARTIFACTS_DIR }}
 
     - name: Build
-      run: dotnet build -c Release --no-restore src
+      run: dotnet build -c ${{ env.PROJECT_CONFIGURATION }} --no-restore ${{ env.PROJECT_ARTIFACTS_DIR }}
 
     - name: Pack
-      run: dotnet pack src/ImGui.NET -c Release --no-restore --no-build
+      run: dotnet pack ${{ env.PROJECT_ARTIFACTS_DIR }} -c ${{ env.PROJECT_CONFIGURATION }} --no-restore --no-build
 
     - name: Upload CodeGenerator
       uses: actions/upload-artifact@v4
@@ -42,7 +42,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: NuGet packages
-        path: ${{ env.PROJECT_ARTIFACTS_DIR }}/ImGui.NET/*.nupkg
+        path: ${{ env.PROJECT_ARTIFACTS_DIR }}/*/*.nupkg
 
   publish:
     runs-on: windows-latest
@@ -70,8 +70,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: NuGet packages
-          path: ${{ env.PROJECT_ARTIFACTS_DIR }}/ImGui.NET/
+          path: ${{ env.PROJECT_ARTIFACTS_DIR }}
 
       - name: Publish to nuget.org
-        working-directory: ${{ env.PROJECT_ARTIFACTS_DIR }}/ImGui.NET/
-        run: dotnet nuget push "*.nupkg" -k ${{ secrets.NUGET_ORG_API_KEY }} -s https://api.nuget.org/v3/index.json
+        working-directory: ${{ env.PROJECT_ARTIFACTS_DIR }}
+        run: dotnet nuget push "**/*.nupkg" -k ${{ secrets.NUGET_ORG_API_KEY }} -s https://api.nuget.org/v3/index.json
