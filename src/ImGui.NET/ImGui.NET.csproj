@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A .NET wrapper for the Dear ImGui library.</Description>
-    <AssemblyVersion>1.90.2.1</AssemblyVersion>
     <Authors>Eric Mellino</Authors>
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -14,6 +13,7 @@
     <PackageProjectUrl>https://github.com/mellinoe/imgui.net</PackageProjectUrl>
     <DocumentationFile Condition="'$(Configuration)' == 'Release'">$(OutputPath)\ImGui.NET.xml</DocumentationFile>
     <RootNamespace>ImGuiNET</RootNamespace>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Numerics.Vectors" Version="4.4.0" />

@@ -7,7 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="GaryNg.ImGui.NET" Version="1.90.2.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Veldrid" Version="4.9.0" />
 		<PackageReference Include="Veldrid.StartupUtilities" Version="4.9.0" />
@@ -23,5 +22,18 @@
 		<EmbeddedResource Include="Shaders/Metal/imgui-vertex.metallib" LogicalName="imgui-vertex.metallib" />
 		<EmbeddedResource Include="Shaders/Metal/imgui-frag.metallib" LogicalName="imgui-frag.metallib" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\ImGui.NET\ImGui.NET.csproj" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<Description>Boilerplate for ImGui.NET.</Description>
+		<Authors>Gary Ng</Authors>
+		<PackageVersion>$(AssemblyVersion)$(PackagePrereleaseIdentifier)</PackageVersion>
+		<PackageTags>ImGui ImGui.NET Immediate Mode GUI</PackageTags>
+		<PackageProjectUrl>https://github.com/garyng/ImGui.NET</PackageProjectUrl>
+    	<IsPackable>true</IsPackable>
+	</PropertyGroup>
 
 </Project>
