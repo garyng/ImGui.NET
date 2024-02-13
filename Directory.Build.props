@@ -7,4 +7,8 @@
     <BaseIntermediateOutputPath>$([System.IO.Path]::GetFullPath('$(RepositoryRootDirectory)bin\obj\$(MSBuildProjectName)'))\</BaseIntermediateOutputPath>
     <ProjectDir>$(MSBuildThisFileDirectory)</ProjectDir>
   </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyVersion>1.90.2.2</AssemblyVersion>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
 </Project>
