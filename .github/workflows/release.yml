@@ -24,13 +24,13 @@ jobs:
         dotnet-version: 7.0.x
 
     - name: Restore
-      run: dotnet restore ${{ env.PROJECT_ARTIFACTS_DIR }}
+      run: dotnet restore ${{ env.PROJECT_SOURCE_DIR }}
 
     - name: Build
-      run: dotnet build -c ${{ env.PROJECT_CONFIGURATION }} --no-restore ${{ env.PROJECT_ARTIFACTS_DIR }}
+      run: dotnet build -c ${{ env.PROJECT_CONFIGURATION }} --no-restore ${{ env.PROJECT_SOURCE_DIR }}
 
     - name: Pack
-      run: dotnet pack ${{ env.PROJECT_ARTIFACTS_DIR }} -c ${{ env.PROJECT_CONFIGURATION }} --no-restore --no-build
+      run: dotnet pack ${{ env.PROJECT_SOURCE_DIR }} -c ${{ env.PROJECT_CONFIGURATION }} --no-restore --no-build
 
     - name: Upload CodeGenerator
       uses: actions/upload-artifact@v4
